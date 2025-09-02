@@ -1578,6 +1578,22 @@ class TemplateManager {
             }
         }
     }
+
+    updateDrawingSettings(newSettings) {
+        this.drawingSettings = {
+            direction: newSettings.direction,
+            order: newSettings.order,
+            density: newSettings.density,
+        };
+
+        // Update the current pixel skip based on new density
+        this.currentPixelSkip = this.drawingSettings.density;
+
+        // If template is running, interrupt sleep to apply new settings immediately
+        if (this.running) {
+            this.interruptSleep();
+        }
+    }
 }
 
 // ---------- Express setup ----------
