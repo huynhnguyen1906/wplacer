@@ -119,35 +119,135 @@ class NetworkError extends Error {
 // ---------- Palette ----------
 
 const pallete = {
-    '0,0,0': 1, '60,60,60': 2, '120,120,120': 3, '210,210,210': 4, '255,255,255': 5,
-    '96,0,24': 6, '237,28,36': 7, '255,127,39': 8, '246,170,9': 9, '249,221,59': 10,
-    '255,250,188': 11, '14,185,104': 12, '19,230,123': 13, '135,255,94': 14, '12,129,110': 15,
-    '16,174,166': 16, '19,225,190': 17, '40,80,158': 18, '64,147,228': 19, '96,247,242': 20,
-    '107,80,246': 21, '153,177,251': 22, '120,12,153': 23, '170,56,185': 24, '224,159,249': 25,
-    '203,0,122': 26, '236,31,128': 27, '243,141,169': 28, '104,70,52': 29, '149,104,42': 30,
-    '248,178,119': 31, '170,170,170': 32, '165,14,30': 33, '250,128,114': 34, '228,92,26': 35,
-    '214,181,148': 36, '156,132,49': 37, '197,173,49': 38, '232,212,95': 39, '74,107,58': 40,
-    '90,148,74': 41, '132,197,115': 42, '15,121,159': 43, '187,250,242': 44, '125,199,255': 45,
-    '77,49,184': 46, '74,66,132': 47, '122,113,196': 48, '181,174,241': 49, '219,164,99': 50,
-    '209,128,81': 51, '255,197,165': 52, '155,82,73': 53, '209,128,120': 54, '250,182,164': 55,
-    '123,99,82': 56, '156,132,107': 57, '51,57,65': 58, '109,117,141': 59, '179,185,209': 60,
-    '109,100,63': 61, '148,140,107': 62, '205,197,158': 63,
+    '0,0,0': 1,
+    '60,60,60': 2,
+    '120,120,120': 3,
+    '210,210,210': 4,
+    '255,255,255': 5,
+    '96,0,24': 6,
+    '237,28,36': 7,
+    '255,127,39': 8,
+    '246,170,9': 9,
+    '249,221,59': 10,
+    '255,250,188': 11,
+    '14,185,104': 12,
+    '19,230,123': 13,
+    '135,255,94': 14,
+    '12,129,110': 15,
+    '16,174,166': 16,
+    '19,225,190': 17,
+    '40,80,158': 18,
+    '64,147,228': 19,
+    '96,247,242': 20,
+    '107,80,246': 21,
+    '153,177,251': 22,
+    '120,12,153': 23,
+    '170,56,185': 24,
+    '224,159,249': 25,
+    '203,0,122': 26,
+    '236,31,128': 27,
+    '243,141,169': 28,
+    '104,70,52': 29,
+    '149,104,42': 30,
+    '248,178,119': 31,
+    '170,170,170': 32,
+    '165,14,30': 33,
+    '250,128,114': 34,
+    '228,92,26': 35,
+    '214,181,148': 36,
+    '156,132,49': 37,
+    '197,173,49': 38,
+    '232,212,95': 39,
+    '74,107,58': 40,
+    '90,148,74': 41,
+    '132,197,115': 42,
+    '15,121,159': 43,
+    '187,250,242': 44,
+    '125,199,255': 45,
+    '77,49,184': 46,
+    '74,66,132': 47,
+    '122,113,196': 48,
+    '181,174,241': 49,
+    '219,164,99': 50,
+    '209,128,81': 51,
+    '255,197,165': 52,
+    '155,82,73': 53,
+    '209,128,120': 54,
+    '250,182,164': 55,
+    '123,99,82': 56,
+    '156,132,107': 57,
+    '51,57,65': 58,
+    '109,117,141': 59,
+    '179,185,209': 60,
+    '109,100,63': 61,
+    '148,140,107': 62,
+    '205,197,158': 63,
 };
 const VALID_COLOR_IDS = new Set([-1, 0, ...Object.values(pallete)]);
 const COLOR_NAMES = {
-    1: 'Black', 2: 'Dark Gray', 3: 'Gray', 4: 'Light Gray', 5: 'White',
-    6: 'Dark Red', 7: 'Red', 8: 'Orange', 9: 'Light Orange', 10: 'Yellow', 11: 'Light Yellow',
-    12: 'Dark Green', 13: 'Green', 14: 'Light Green', 15: 'Dark Teal', 16: 'Teal', 17: 'Light Teal',
-    18: 'Dark Blue', 19: 'Blue', 20: 'Light Blue', 21: 'Indigo', 22: 'Periwinkle',
-    23: 'Dark Purple', 24: 'Purple', 25: 'Lavender', 26: 'Dark Pink', 27: 'Pink', 28: 'Light Pink',
-    29: 'Dark Brown', 30: 'Brown', 31: 'Light Brown',
-    32: 'P-Gray', 33: 'P-Maroon', 34: 'P-Salmon', 35: 'P-Burnt Orange', 36: 'P-Tan',
-    37: 'P-Dark Gold', 38: 'P-Gold', 39: 'P-Light Gold', 40: 'P-Olive', 41: 'P-Forest Green',
-    42: 'P-Lime Green', 43: 'P-Dark Aqua', 44: 'P-Cyan', 45: 'P-Sky Blue', 46: 'P-Royal Blue',
-    47: 'P-Navy', 48: 'P-Light Purple', 49: 'P-Lilac', 50: 'P-Ochre', 51: 'P-Terracotta',
-    52: 'P-Peach', 53: 'P-Dark Rose', 54: 'P-Rose', 55: 'P-Light Rose', 56: 'P-Taupe',
-    57: 'P-Light Taupe', 58: 'P-Charcoal', 59: 'P-Slate', 60: 'P-Light Slate', 61: 'P-Khaki',
-    62: 'P-Light Khaki', 63: 'P-Beige'
+    1: 'Black',
+    2: 'Dark Gray',
+    3: 'Gray',
+    4: 'Light Gray',
+    5: 'White',
+    6: 'Dark Red',
+    7: 'Red',
+    8: 'Orange',
+    9: 'Light Orange',
+    10: 'Yellow',
+    11: 'Light Yellow',
+    12: 'Dark Green',
+    13: 'Green',
+    14: 'Light Green',
+    15: 'Dark Teal',
+    16: 'Teal',
+    17: 'Light Teal',
+    18: 'Dark Blue',
+    19: 'Blue',
+    20: 'Light Blue',
+    21: 'Indigo',
+    22: 'Periwinkle',
+    23: 'Dark Purple',
+    24: 'Purple',
+    25: 'Lavender',
+    26: 'Dark Pink',
+    27: 'Pink',
+    28: 'Light Pink',
+    29: 'Dark Brown',
+    30: 'Brown',
+    31: 'Light Brown',
+    32: 'P-Gray',
+    33: 'P-Maroon',
+    34: 'P-Salmon',
+    35: 'P-Burnt Orange',
+    36: 'P-Tan',
+    37: 'P-Dark Gold',
+    38: 'P-Gold',
+    39: 'P-Light Gold',
+    40: 'P-Olive',
+    41: 'P-Forest Green',
+    42: 'P-Lime Green',
+    43: 'P-Dark Aqua',
+    44: 'P-Cyan',
+    45: 'P-Sky Blue',
+    46: 'P-Royal Blue',
+    47: 'P-Navy',
+    48: 'P-Light Purple',
+    49: 'P-Lilac',
+    50: 'P-Ochre',
+    51: 'P-Terracotta',
+    52: 'P-Peach',
+    53: 'P-Dark Rose',
+    54: 'P-Rose',
+    55: 'P-Light Rose',
+    56: 'P-Taupe',
+    57: 'P-Light Taupe',
+    58: 'P-Charcoal',
+    59: 'P-Slate',
+    60: 'P-Light Slate',
+    61: 'P-Khaki',
+    62: 'P-Light Khaki',
+    63: 'P-Beige',
 };
 
 // ---------- Charge prediction cache ----------
@@ -332,12 +432,17 @@ const getNextProxy = () => {
  * Holds cookie jar, optional proxy, and Impit fetch context.
  */
 class WPlacer {
-    constructor({ template, coords, globalSettings, templateSettings, templateName }) {
+    constructor({ template, coords, globalSettings, templateSettings, templateName, drawingSettings }) {
         this.template = template;
         this.templateName = templateName;
         this.coords = coords;
         this.globalSettings = globalSettings;
         this.templateSettings = templateSettings || {};
+        this.drawingSettings = drawingSettings || {
+            direction: globalSettings.drawingDirection,
+            order: globalSettings.drawingOrder,
+            density: globalSettings.pixelSkip,
+        };
         this.cookies = null;
         this.browser = null;
         this.userInfo = null;
@@ -352,7 +457,9 @@ class WPlacer {
             return await this.browser.fetch(url, optsWithTimeout);
         } catch (error) {
             if (error.code === 'InvalidArg') {
-                throw new NetworkError(`Internal fetch error (InvalidArg) for URL: ${url}. This may be a temporary network issue or a problem with a proxy.`);
+                throw new NetworkError(
+                    `Internal fetch error (InvalidArg) for URL: ${url}. This may be a temporary network issue or a problem with a proxy.`
+                );
             }
             // Re-throw other errors
             throw error;
@@ -394,7 +501,9 @@ class WPlacer {
         try {
             const userInfo = JSON.parse(bodyText);
             if (userInfo.error === 'Unauthorized')
-                throw new NetworkError('(401) Unauthorized. The cookie may be invalid or the current IP/proxy is rate-limited.');
+                throw new NetworkError(
+                    '(401) Unauthorized. The cookie may be invalid or the current IP/proxy is rate-limited.'
+                );
             if (userInfo.error) throw new Error(`(500) Auth failed: "${userInfo.error}".`);
             if (userInfo.id && userInfo.name) {
                 this.userInfo = userInfo;
@@ -423,7 +532,7 @@ class WPlacer {
     /*
      * Load all tiles intersecting the template bounding box into memory.
      * Converts to palette IDs for quick mismatch checks.
-    */
+     */
     async loadTiles() {
         this.tiles.clear();
         const [tx, ty, px, py] = this.coords;
@@ -506,7 +615,9 @@ class WPlacer {
 
         // classify
         if (response.status === HTTP_STATUS.UNAUTH && response.data.error === 'Unauthorized')
-            throw new NetworkError('(401) Unauthorized during paint. The cookie may be invalid or the current IP/proxy is rate-limited.');
+            throw new NetworkError(
+                '(401) Unauthorized during paint. The cookie may be invalid or the current IP/proxy is rate-limited.'
+            );
         if (
             response.status === HTTP_STATUS.FORBIDDEN &&
             (response.data.error === 'refresh' || response.data.error === 'Unauthorized')
@@ -618,7 +729,11 @@ class WPlacer {
         let mismatched = this._getMismatchedPixels(currentSkip, colorFilter);
         if (mismatched.length === 0) return 0;
 
-        log(this.userInfo.id, this.userInfo.name, `[${this.templateName}] Found ${mismatched.length} paintable pixels.`);
+        log(
+            this.userInfo.id,
+            this.userInfo.name,
+            `[${this.templateName}] Found ${mismatched.length} paintable pixels.`
+        );
 
         // outline
         if (this.templateSettings.outlineMode) {
@@ -627,7 +742,7 @@ class WPlacer {
         }
 
         // direction
-        switch (this.globalSettings.drawingDirection) {
+        switch (this.drawingSettings.direction) {
             case 'btt':
                 mismatched.sort((a, b) => b.localY - a.localY);
                 break;
@@ -705,8 +820,7 @@ class WPlacer {
 
 // ---------- Persistence helpers ----------
 
-const loadJSON = (filename) =>
-    existsSync(filename) ? JSON.parse(readFileSync(filename, 'utf8')) : {};
+const loadJSON = (filename) => (existsSync(filename) ? JSON.parse(readFileSync(filename, 'utf8')) : {});
 const saveJSON = (filename, data) => writeFileSync(filename, JSON.stringify(data, null, 2));
 
 const users = loadJSON(USERS_FILE);
@@ -906,6 +1020,7 @@ function saveTemplatesCompressed() {
                 skipPaintedPixels: t.skipPaintedPixels,
                 enableAutostart: t.enableAutostart,
                 userIds: t.userIds,
+                drawingSettings: t.drawingSettings, // Add drawing settings to save data
                 template: { width, height, shareCode }, // compact on disk
             };
         } catch (e) {
@@ -1036,6 +1151,7 @@ class TemplateManager {
         skipPaintedPixels,
         enableAutostart,
         userIds,
+        drawingSettings,
     }) {
         this.name = name;
         this.template = templateData;
@@ -1049,6 +1165,13 @@ class TemplateManager {
         this.enableAutostart = enableAutostart;
         this.userIds = userIds;
 
+        // Drawing settings per template (fallback to global if not set)
+        this.drawingSettings = drawingSettings || {
+            direction: currentSettings.drawingDirection,
+            order: currentSettings.drawingOrder,
+            density: currentSettings.pixelSkip,
+        };
+
         this.running = false;
         this.status = 'Waiting to be started.';
         this.masterId = this.userIds[0];
@@ -1057,7 +1180,7 @@ class TemplateManager {
 
         this.totalPixels = this.template.data.flat().filter((p) => p !== 0).length;
         this.pixelsRemaining = this.totalPixels;
-        this.currentPixelSkip = currentSettings.pixelSkip;
+        this.currentPixelSkip = this.drawingSettings.density; // Use per-template density instead of global
 
         this.initialRetryDelay = MS.THIRTY_SEC;
         this.maxRetryDelay = MS.FIVE_MIN;
@@ -1137,13 +1260,18 @@ class TemplateManager {
             } catch (error) {
                 if (error.name === 'SuspensionError') {
                     const until = new Date(error.suspendedUntil).toLocaleString();
-                    log(wplacer.userInfo.id, wplacer.userInfo.name, `[${this.name}] 🛑 Account suspended until ${until}.`);
+                    log(
+                        wplacer.userInfo.id,
+                        wplacer.userInfo.name,
+                        `[${this.name}] 🛑 Account suspended until ${until}.`
+                    );
                     users[wplacer.userInfo.id].suspendedUntil = error.suspendedUntil;
                     saveUsers();
                     throw error;
                 }
                 if (error.message === 'REFRESH_TOKEN') {
                     log(wplacer.userInfo.id, wplacer.userInfo.name, `[${this.name}] 🔄 Token expired. Next token...`);
+                    TokenManager.invalidateToken();
                     await sleep(1000);
                 } else {
                     throw error;
@@ -1187,7 +1315,6 @@ class TemplateManager {
                     colorsToPaint = [null]; // A single loop for non-color mode
                 }
 
-
                 for (const color of colorsToPaint) {
                     if (!this.running) break;
 
@@ -1198,13 +1325,22 @@ class TemplateManager {
                     // 1. Find a working user and perform a single check for the current color
                     for (let i = 0; i < this.userQueue.length; i++) {
                         const checkUserId = this.userQueue.shift();
-                        if (!users[checkUserId] || (users[checkUserId].suspendedUntil && Date.now() < users[checkUserId].suspendedUntil)) {
+                        if (
+                            !users[checkUserId] ||
+                            (users[checkUserId].suspendedUntil && Date.now() < users[checkUserId].suspendedUntil)
+                        ) {
                             this.userQueue.push(checkUserId);
                             continue;
                         }
                         const wplacer = new WPlacer({
-                            template: this.template, coords: this.coords, globalSettings: currentSettings,
-                            templateSettings: { eraseMode: this.eraseMode, outlineMode: this.outlineMode, skipPaintedPixels: this.skipPaintedPixels },
+                            template: this.template,
+                            coords: this.coords,
+                            globalSettings: currentSettings,
+                            templateSettings: {
+                                eraseMode: this.eraseMode,
+                                outlineMode: this.outlineMode,
+                                skipPaintedPixels: this.skipPaintedPixels,
+                            },
                             templateName: this.name,
                         });
                         try {
@@ -1222,7 +1358,11 @@ class TemplateManager {
                     }
 
                     if (!checkWplacer) {
-                        log('SYSTEM', 'wplacer', `[${this.name}] ❌ All users failed initial check. Retrying in ${duration(this.currentRetryDelay)}.`);
+                        log(
+                            'SYSTEM',
+                            'wplacer',
+                            `[${this.name}] ❌ All users failed initial check. Retrying in ${duration(this.currentRetryDelay)}.`
+                        );
                         await sleep(this.currentRetryDelay);
                         this.currentRetryDelay = Math.min(this.currentRetryDelay * 2, this.maxRetryDelay);
                         continue; // Retry the entire color loop
@@ -1232,7 +1372,11 @@ class TemplateManager {
                     if (this.pixelsRemaining === 0) {
                         if (this.antiGriefMode) {
                             this.status = 'Monitoring for changes.';
-                            log('SYSTEM', 'wplacer', `[${this.name}] 🖼️ Template complete. Monitoring... Recheck in ${duration(currentSettings.antiGriefStandby)}.`);
+                            log(
+                                'SYSTEM',
+                                'wplacer',
+                                `[${this.name}] 🖼️ Template complete. Monitoring... Recheck in ${duration(currentSettings.antiGriefStandby)}.`
+                            );
                             await this.cancellableSleep(currentSettings.antiGriefStandby);
                             continue; // Continue the main `while (this.running)` loop to re-check later
                         } else {
@@ -1246,8 +1390,12 @@ class TemplateManager {
 
                     if (allMismatchedForColor.length === 0) {
                         if (isColorMode) {
-                            const colorName = color === 0 ? 'Erase' : (COLOR_NAMES[color] || 'Unknown');
-                            log('SYSTEM', 'wplacer', `[${this.name}] ✅ No pixels remaining for color ID ${color} (${colorName}).`);
+                            const colorName = color === 0 ? 'Erase' : COLOR_NAMES[color] || 'Unknown';
+                            log(
+                                'SYSTEM',
+                                'wplacer',
+                                `[${this.name}] ✅ No pixels remaining for color ID ${color} (${colorName}).`
+                            );
                         }
                         continue; // Skip to the next color
                     }
@@ -1255,29 +1403,42 @@ class TemplateManager {
                     // 2. Determine the highest density that has pixels to paint
                     let highestDensityWithPixels = 1;
                     for (let density = currentSettings.pixelSkip; density > 1; density /= 2) {
-                        if (allMismatchedForColor.some(p => (p.localX + p.localY) % density === 0)) {
+                        if (allMismatchedForColor.some((p) => (p.localX + p.localY) % density === 0)) {
                             highestDensityWithPixels = density;
                             break;
                         }
                     }
                     if (isColorMode) {
-                        const colorName = color === 0 ? 'Erase' : (COLOR_NAMES[color] || 'Unknown');
-                        log('SYSTEM', 'wplacer', `[${this.name}] Starting passes for color ID ${color} (${colorName}) from density 1/${highestDensityWithPixels}`);
+                        const colorName = color === 0 ? 'Erase' : COLOR_NAMES[color] || 'Unknown';
+                        log(
+                            'SYSTEM',
+                            'wplacer',
+                            `[${this.name}] Starting passes for color ID ${color} (${colorName}) from density 1/${highestDensityWithPixels}`
+                        );
                     }
 
-
                     // 3. Loop from the determined highest density down to 1
-                    for (this.currentPixelSkip = highestDensityWithPixels; this.currentPixelSkip >= 1; this.currentPixelSkip /= 2) {
+                    for (
+                        this.currentPixelSkip = highestDensityWithPixels;
+                        this.currentPixelSkip >= 1;
+                        this.currentPixelSkip /= 2
+                    ) {
                         if (!this.running) break;
                         log('SYSTEM', 'wplacer', `[${this.name}] Starting pass (1/${this.currentPixelSkip})`);
 
                         let passComplete = false;
                         while (this.running && !passComplete) {
                             // The check is now synchronous and uses the pre-fetched data
-                            const pixelsForThisPass = allMismatchedForColor.filter(p => (p.localX + p.localY) % this.currentPixelSkip === 0);
+                            const pixelsForThisPass = allMismatchedForColor.filter(
+                                (p) => (p.localX + p.localY) % this.currentPixelSkip === 0
+                            );
 
                             if (pixelsForThisPass.length === 0) {
-                                log('SYSTEM', 'wplacer', `[${this.name}] ✅ Pass (1/${this.currentPixelSkip}) complete.`);
+                                log(
+                                    'SYSTEM',
+                                    'wplacer',
+                                    `[${this.name}] ✅ Pass (1/${this.currentPixelSkip}) complete.`
+                                );
                                 passComplete = true;
                                 continue;
                             }
@@ -1297,7 +1458,10 @@ class TemplateManager {
                                 const userId = this.userQueue.shift();
                                 const now = Date.now();
 
-                                if (!users[userId] || (users[userId].suspendedUntil && now < users[userId].suspendedUntil)) {
+                                if (
+                                    !users[userId] ||
+                                    (users[userId].suspendedUntil && now < users[userId].suspendedUntil)
+                                ) {
                                     this.userQueue.push(userId);
                                     continue;
                                 }
@@ -1306,26 +1470,42 @@ class TemplateManager {
                                     if (!activeBrowserUsers.has(userId)) {
                                         activeBrowserUsers.add(userId);
                                         const w = new WPlacer({});
-                                        try { await w.login(users[userId].cookies); }
-                                        catch (e) { logUserError(e, userId, users[userId].name, 'opportunistic resync'); }
-                                        finally { activeBrowserUsers.delete(userId); }
+                                        try {
+                                            await w.login(users[userId].cookies);
+                                        } catch (e) {
+                                            logUserError(e, userId, users[userId].name, 'opportunistic resync');
+                                        } finally {
+                                            activeBrowserUsers.delete(userId);
+                                        }
                                     }
                                 }
 
                                 const predicted = ChargeCache.predict(userId, now);
-                                const threshold = predicted ? Math.max(1, Math.floor(predicted.max * currentSettings.chargeThreshold)) : Infinity;
+                                const threshold = predicted
+                                    ? Math.max(1, Math.floor(predicted.max * currentSettings.chargeThreshold))
+                                    : Infinity;
 
                                 if (predicted && Math.floor(predicted.count) >= threshold) {
                                     activeBrowserUsers.add(userId);
                                     const wplacer = new WPlacer({
-                                        template: this.template, coords: this.coords, globalSettings: currentSettings,
-                                        templateSettings: { eraseMode: this.eraseMode, outlineMode: this.outlineMode, skipPaintedPixels: this.skipPaintedPixels },
+                                        template: this.template,
+                                        coords: this.coords,
+                                        globalSettings: currentSettings,
+                                        templateSettings: {
+                                            eraseMode: this.eraseMode,
+                                            outlineMode: this.outlineMode,
+                                            skipPaintedPixels: this.skipPaintedPixels,
+                                        },
                                         templateName: this.name,
                                     });
                                     try {
                                         const userInfo = await wplacer.login(users[userId].cookies);
                                         this.status = `Running user ${userInfo.name}#${userInfo.id} | Pass (1/${this.currentPixelSkip})`;
-                                        log(userInfo.id, userInfo.name, `[${this.name}] 🔋 Predicted charges: ${Math.floor(predicted.count)}/${predicted.max}.`);
+                                        log(
+                                            userInfo.id,
+                                            userInfo.name,
+                                            `[${this.name}] 🔋 Predicted charges: ${Math.floor(predicted.count)}/${predicted.max}.`
+                                        );
 
                                         const paintedNow = await this._performPaintTurn(wplacer, color);
 
@@ -1340,7 +1520,8 @@ class TemplateManager {
                                         await this.handleChargePurchases(wplacer);
                                         this.currentRetryDelay = this.initialRetryDelay;
                                     } catch (error) {
-                                        if (error.name !== 'SuspensionError') logUserError(error, userId, users[userId].name, 'perform paint turn');
+                                        if (error.name !== 'SuspensionError')
+                                            logUserError(error, userId, users[userId].name, 'perform paint turn');
                                     } finally {
                                         activeBrowserUsers.delete(userId);
                                         this.userQueue.push(userId);
@@ -1353,7 +1534,11 @@ class TemplateManager {
 
                             if (foundUserForTurn) {
                                 if (this.running && currentSettings.accountCooldown > 0) {
-                                    log('SYSTEM', 'wplacer', `[${this.name}] ⏱️ Waiting for cooldown (${duration(currentSettings.accountCooldown)}).`);
+                                    log(
+                                        'SYSTEM',
+                                        'wplacer',
+                                        `[${this.name}] ⏱️ Waiting for cooldown (${duration(currentSettings.accountCooldown)}).`
+                                    );
                                     await this.cancellableSleep(currentSettings.accountCooldown);
                                 }
                             } else {
@@ -1366,9 +1551,17 @@ class TemplateManager {
                                 });
                                 const waitTime = (cooldowns.length > 0 ? Math.min(...cooldowns) : 60_000) + 2000;
                                 this.status = 'Waiting for charges.';
-                                log('SYSTEM', 'wplacer', `[${this.name}] ⏳ No users ready. Waiting ~${duration(waitTime)}.`);
+                                log(
+                                    'SYSTEM',
+                                    'wplacer',
+                                    `[${this.name}] ⏳ No users ready. Waiting ~${duration(waitTime)}.`
+                                );
                                 await this.cancellableSleep(waitTime);
-                                log('SYSTEM', 'wplacer', `[${this.name}] ⌚ Woke up after waiting. Re-evaluating users...`);
+                                log(
+                                    'SYSTEM',
+                                    'wplacer',
+                                    `[${this.name}] ⌚ Woke up after waiting. Re-evaluating users...`
+                                );
                             }
                         }
                     }
@@ -1433,7 +1626,7 @@ app.get('/users', (_req, res) => res.json(users));
 
 app.post('/user', async (req, res) => {
     if (!req.body?.cookies || !req.body.cookies.j) return res.sendStatus(HTTP_STATUS.BAD_REQ);
-    const wplacer = new WPlacer({});
+    const wplacer = new WPlacer({ globalSettings: currentSettings });
     try {
         const userInfo = await wplacer.login(req.body.cookies);
         users[userInfo.id] = {
@@ -1485,7 +1678,7 @@ app.get('/user/status/:id', async (req, res) => {
     const { id } = req.params;
     if (!users[id] || activeBrowserUsers.has(id)) return res.sendStatus(HTTP_STATUS.CONFLICT);
     activeBrowserUsers.add(id);
-    const wplacer = new WPlacer({});
+    const wplacer = new WPlacer({ globalSettings: currentSettings });
     try {
         const userInfo = await wplacer.login(users[id].cookies);
         res.status(HTTP_STATUS.OK).json(userInfo);
@@ -1511,7 +1704,7 @@ app.post('/users/status', async (_req, res) => {
             return;
         }
         activeBrowserUsers.add(id);
-        const wplacer = new WPlacer({});
+        const wplacer = new WPlacer({ globalSettings: currentSettings });
         try {
             const userInfo = await wplacer.login(users[id].cookies);
             results[id] = { success: true, data: userInfo };
@@ -1559,6 +1752,7 @@ app.get('/templates', (_req, res) => {
             status: t.status,
             pixelsRemaining: t.pixelsRemaining,
             totalPixels: t.totalPixels,
+            drawingSettings: t.drawingSettings, // Include drawing settings in template data
         };
     }
     res.json(out);
@@ -1739,6 +1933,67 @@ app.get('/canvas', async (req, res) => {
     }
 });
 
+// Drawing Settings per Template API Endpoints
+app.get('/templates/running', (_req, res) => {
+    const runningTemplates = {};
+    for (const id in templates) {
+        if (templates[id].running) {
+            runningTemplates[id] = {
+                name: templates[id].name,
+                status: templates[id].status,
+                drawingSettings: templates[id].drawingSettings,
+            };
+        }
+    }
+    res.json(runningTemplates);
+});
+
+app.get('/template/:id/drawing-settings', (req, res) => {
+    const { id } = req.params;
+    if (!id || !templates[id]) return res.sendStatus(HTTP_STATUS.BAD_REQ);
+    const template = templates[id];
+    res.json(template.drawingSettings);
+});
+
+app.put('/template/:id/drawing-settings', (req, res) => {
+    const { id } = req.params;
+    if (!id || !templates[id]) return res.sendStatus(HTTP_STATUS.BAD_REQ);
+
+    const template = templates[id];
+    const { direction, order, density } = req.body;
+
+    // Validate input
+    const validDirections = ['ttb', 'btt', 'ltr', 'rtl', 'center_out'];
+    const validOrders = ['linear', 'random', 'color'];
+    const validDensities = [1, 2, 4, 8, 16, 32];
+
+    if (
+        !validDirections.includes(direction) ||
+        !validOrders.includes(order) ||
+        !validDensities.includes(Number(density))
+    ) {
+        return res.status(HTTP_STATUS.BAD_REQ).json({ error: 'Invalid drawing settings values' });
+    }
+
+    const newSettings = {
+        direction,
+        order,
+        density: Number(density),
+    };
+
+    // Update the template settings
+    template.updateDrawingSettings(newSettings);
+
+    // Save to disk
+    saveTemplatesCompressed();
+
+    res.json({
+        success: true,
+        settings: template.drawingSettings,
+        message: 'Drawing settings updated successfully',
+    });
+});
+
 // ---------- One-time migration: old -> compressed ----------
 
 function migrateOldTemplatesIfNeeded() {
@@ -1798,7 +2053,11 @@ const runKeepAlive = async () => {
         return;
     }
 
-    log('SYSTEM', 'KeepAlive', `Found ${inactiveUserIds.length} idle users to check out of ${allUserIds.length} total users.`);
+    log(
+        'SYSTEM',
+        'KeepAlive',
+        `Found ${inactiveUserIds.length} idle users to check out of ${allUserIds.length} total users.`
+    );
 
     let successCount = 0;
     let failCount = 0;
@@ -1826,14 +2085,15 @@ const runKeepAlive = async () => {
 
 // ---------- Startup ----------
 const diffVer = (v1, v2) => {
-  const [a1, b1, c1] = v1.split(".").map(Number);
-  const [a2, b2, c2] = v2.split(".").map(Number);
-  return a1 !== a2 ? (a1 - a2) * 100 : b1 !== b2 ? (b1 - b2) * 10 : c1 - c2;
+    const [a1, b1, c1] = v1.split('.').map(Number);
+    const [a2, b2, c2] = v2.split('.').map(Number);
+    return a1 !== a2 ? (a1 - a2) * 100 : b1 !== b2 ? (b1 - b2) * 10 : c1 - c2;
 };
 (async () => {
     console.clear();
     const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
-    console.log(gradient(["#EF8F20", "#CB3D27", "#A82421"])(`                           ████
+    console.log(
+        gradient(['#EF8F20', '#CB3D27', '#A82421'])(`                           ████
                           ▒▒███
  █████ ███ █████ ████████  ▒███   ██████    ██████   ██████  ████████
 ▒▒███ ▒███▒▒███ ▒▒███▒▒███ ▒███  ▒▒▒▒▒███  ███▒▒███ ███▒▒███▒▒███▒▒███
@@ -1843,16 +2103,22 @@ const diffVer = (v1, v2) => {
    ▒▒▒▒ ▒▒▒▒     ▒███▒▒▒  ▒▒▒▒▒  ▒▒▒▒▒▒▒▒  ▒▒▒▒▒▒   ▒▒▒▒▒▒  ▒▒▒▒▒
                  ▒███
                  █████
-                ▒▒▒▒▒                                          v${version}`));
+                ▒▒▒▒▒                                          v${version}`)
+    );
     // check versions (dont delete this ffs)
     try {
-        const githubPackage = await fetch("https://raw.githubusercontent.com/luluwaffless/wplacer/refs/heads/main/package.json");
+        const githubPackage = await fetch(
+            'https://raw.githubusercontent.com/luluwaffless/wplacer/refs/heads/main/package.json'
+        );
         const githubVersion = (await githubPackage.json()).version;
         const diff = diffVer(version, githubVersion);
-        if (diff !== 0) console.warn(`${diff < 0 ? "⚠️ Outdated version! Please update using \"git pull\"." : "🤖 Unreleased."}\n  GitHub: ${githubVersion}\n  Local: ${version} (${diff})`);
+        if (diff !== 0)
+            console.warn(
+                `${diff < 0 ? '⚠️ Outdated version! Please update using "git pull".' : '🤖 Unreleased.'}\n  GitHub: ${githubVersion}\n  Local: ${version} (${diff})`
+            );
     } catch {
-        console.warn("⚠️ Could not check for updates.");
-    };
+        console.warn('⚠️ Could not check for updates.');
+    }
 
     migrateOldTemplatesIfNeeded();
 
@@ -1870,11 +2136,11 @@ const diffVer = (v1, v2) => {
                 data,
                 shareCode: te.shareCode ?? shareCodeFromTemplate({ width: w, height: h, data }),
             };
-        };
+        }
         if (te?.shareCode) {
             const dec = templateFromShareCode(te.shareCode);
             return { width: dec.width, height: dec.height, data: dec.data, shareCode: te.shareCode };
-        };
+        }
         throw new Error('template missing data/shareCode');
     };
 
@@ -1898,16 +2164,19 @@ const diffVer = (v1, v2) => {
                     skipPaintedPixels: t.skipPaintedPixels,
                     enableAutostart: t.enableAutostart,
                     userIds: t.userIds,
+                    drawingSettings: t.drawingSettings, // Include drawing settings
                 });
                 if (t.enableAutostart) autostartedTemplates.push(id);
             } else console.warn(`⚠️ Template "${t.name}" not loaded because assigned user(s) are missing.`);
         } catch (e) {
             console.error(`⚠️ Skipping template ${id}: ${e.message}`);
-        };
-    };
+        }
+    }
 
     loadProxies();
-    console.log(`✅ Loaded ${Object.keys(templates).length} templates, ${Object.keys(users).length} users, ${loadedProxies.length} proxies.`);
+    console.log(
+        `✅ Loaded ${Object.keys(templates).length} templates, ${Object.keys(users).length} users, ${loadedProxies.length} proxies.`
+    );
 
     const probe = Array.from(new Set([APP_PRIMARY_PORT, ...APP_FALLBACK_PORTS]));
     function tryListen(idx = 0) {
@@ -1924,7 +2193,11 @@ const diffVer = (v1, v2) => {
             if (currentSettings.openBrowserOnStart) openBrowser(url);
 
             setInterval(runKeepAlive, currentSettings.keepAliveCooldown);
-            log('SYSTEM', 'KeepAlive', `🔄 User session keep-alive started. Interval: ${duration(currentSettings.keepAliveCooldown)}.`);
+            log(
+                'SYSTEM',
+                'KeepAlive',
+                `🔄 User session keep-alive started. Interval: ${duration(currentSettings.keepAliveCooldown)}.`
+            );
 
             autostartedTemplates.forEach((id) => {
                 const manager = templates[id];
@@ -1942,8 +2215,8 @@ const diffVer = (v1, v2) => {
                     } else {
                         manager.userIds.forEach((uid) => activeTemplateUsers.add(uid));
                         manager.start().catch((e) => log(id, manager.masterName, 'Error autostarting template', e));
-                    };
-                };
+                    }
+                }
             });
         });
         server.on('error', (err) => {
@@ -1957,8 +2230,8 @@ const diffVer = (v1, v2) => {
             } else {
                 console.error('❌ Server error:', err);
                 process.exit(1);
-            };
+            }
         });
-    };
+    }
     tryListen(0);
 })();

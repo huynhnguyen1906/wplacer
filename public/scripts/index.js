@@ -71,11 +71,26 @@ const proxyCount = $('proxyCount');
 const reloadProxiesBtn = $('reloadProxiesBtn');
 const logProxyUsage = $('logProxyUsage');
 
+// Drawing Mode elements
+const templateSelectForDrawing = $('templateSelectForDrawing');
+const drawingSettingsContainer = $('drawingSettingsContainer');
+const templateDrawingDirection = $('templateDrawingDirection');
+const templateDrawingOrder = $('templateDrawingOrder');
+const templateDrawingDensity = $('templateDrawingDensity');
+const saveDrawingSettings = $('saveDrawingSettings');
+const cancelDrawingSettings = $('cancelDrawingSettings');
+const unsavedChangesWarning = $('unsavedChangesWarning');
+
 // --- Global State ---
 let templateUpdateInterval = null;
 let confirmCallback = null;
 let currentTab = 'main';
 let currentTemplate = { width: 0, height: 0, data: [] };
+
+// Drawing Mode state
+let originalDrawingSettings = null;
+let hasUnsavedDrawingChanges = false;
+let availableTemplates = {};
 
 const tabs = {
     main,
@@ -1026,6 +1041,9 @@ openSettings.addEventListener('click', async () => {
         dropletReserve.value = currentSettings.dropletReserve;
         antiGriefStandby.value = currentSettings.antiGriefStandby / 60000;
         chargeThreshold.value = currentSettings.chargeThreshold * 100;
+
+        // Load templates for drawing mode
+        await loadTemplatesForDrawingMode();
     } catch (error) {
         handleError(error);
     }
@@ -1149,6 +1167,145 @@ tx.addEventListener('blur', () => {
         }
     }
 });
+
+// Drawing Mode Functions
+const loadTemplatesForDrawingMode = async () => {
+    try {
+        const response = await axios.get('/templates');
+        availableTemplates = response.data;
+
+        // Clear and populate template selector
+        templateSelectForDrawing.innerHTML = '<option value="">Select a template...</option>';
+
+        for (const id in availableTemplates) {
+            const template = availableTemplates[id];
+            const option = document.createElement('option');
+            option.value = id;
+            option.textContent = template.name;
+            templateSelectForDrawing.appendChild(option);
+        }
+    } catch (error) {
+        handleError(error);
+    }
+};
+
+const loadDrawingSettingsForTemplate = (templateId) => {
+    if (!templateId || !availableTemplates[templateId]) return;
+
+    const template = availableTemplates[templateId];
+    const settings = template.drawingSettings || {
+        direction: 'ttb',
+        order: 'linear',
+        density: 1,
+    };
+
+    // Store original settings for change detection
+    originalDrawingSettings = { ...settings };
+
+    // Populate form fields
+    templateDrawingDirection.value = settings.direction;
+    templateDrawingOrder.value = settings.order;
+    templateDrawingDensity.value = settings.density;
+
+    // Show settings container
+    drawingSettingsContainer.style.display = 'block';
+
+    // Reset change detection
+    resetDrawingModeChangeTracking();
+};
+
+const checkForDrawingSettingsChanges = () => {
+    if (!originalDrawingSettings) return false;
+
+    const currentSettings = {
+        direction: templateDrawingDirection.value,
+        order: templateDrawingOrder.value,
+        density: parseInt(templateDrawingDensity.value, 10),
+    };
+
+    return JSON.stringify(originalDrawingSettings) !== JSON.stringify(currentSettings);
+};
+
+const updateDrawingModeUI = () => {
+    hasUnsavedDrawingChanges = checkForDrawingSettingsChanges();
+
+    saveDrawingSettings.disabled = !hasUnsavedDrawingChanges;
+    cancelDrawingSettings.disabled = !hasUnsavedDrawingChanges;
+
+    if (hasUnsavedDrawingChanges) {
+        unsavedChangesWarning.style.display = 'block';
+    } else {
+        unsavedChangesWarning.style.display = 'none';
+    }
+};
+
+const resetDrawingModeChangeTracking = () => {
+    hasUnsavedDrawingChanges = false;
+    updateDrawingModeUI();
+};
+
+const saveTemplateDrawingSettings = async () => {
+    const templateId = templateSelectForDrawing.value;
+    if (!templateId) return;
+
+    const settings = {
+        direction: templateDrawingDirection.value,
+        order: templateDrawingOrder.value,
+        density: parseInt(templateDrawingDensity.value, 10),
+    };
+
+    try {
+        const response = await axios.put(`/template/${templateId}/drawing-settings`, settings);
+        if (response.data.success) {
+            showMessage('Success', response.data.message);
+
+            // Update original settings and reset change tracking
+            originalDrawingSettings = { ...settings };
+            resetDrawingModeChangeTracking();
+
+            // Update available templates cache
+            if (availableTemplates[templateId]) {
+                availableTemplates[templateId].drawingSettings = settings;
+            }
+        }
+    } catch (error) {
+        handleError(error);
+    }
+};
+
+const cancelTemplateDrawingChanges = () => {
+    if (!originalDrawingSettings) return;
+
+    // Restore original values
+    templateDrawingDirection.value = originalDrawingSettings.direction;
+    templateDrawingOrder.value = originalDrawingSettings.order;
+    templateDrawingDensity.value = originalDrawingSettings.density;
+
+    // Reset change tracking
+    resetDrawingModeChangeTracking();
+};
+
+// Event Listeners for Drawing Mode
+templateSelectForDrawing.addEventListener('change', (e) => {
+    const templateId = e.target.value;
+
+    if (!templateId) {
+        drawingSettingsContainer.style.display = 'none';
+        originalDrawingSettings = null;
+        resetDrawingModeChangeTracking();
+        return;
+    }
+
+    loadDrawingSettingsForTemplate(templateId);
+});
+
+// Add change listeners to drawing settings controls
+[templateDrawingDirection, templateDrawingOrder, templateDrawingDensity].forEach((element) => {
+    element.addEventListener('change', updateDrawingModeUI);
+});
+
+saveDrawingSettings.addEventListener('click', saveTemplateDrawingSettings);
+cancelDrawingSettings.addEventListener('click', cancelTemplateDrawingChanges);
 
 [ty, px, py].forEach((input) => {
     input.addEventListener('blur', () => {
